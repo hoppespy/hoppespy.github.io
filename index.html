@@ -11,27 +11,34 @@
     padding: 0;
   }
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #eef5ff;
+    color: #333;
   }
   .header {
-    background: #333;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
     color: #fff;
-    padding: 10px 20px;
     text-align: center;
+    padding: 20px;
   }
   nav ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    justify-content: center;
   }
   nav ul li {
-    display: inline;
-    margin-right: 10px;
+    margin-right: 20px;
   }
   nav ul li a {
     color: #fff;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover {
+    color: #ffcc00;
   }
   .container {
     width: 80%;
@@ -45,10 +52,11 @@
   }
   .sidebar {
     float: right;
-    width: 30%;
-    background: #333;
-    color: #fff;
+    width: 25%;
+    background: #f4f4f4;
     padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   footer {
     clear: both;
@@ -56,6 +64,7 @@
     padding: 10px;
     background: #333;
     color: #fff;
+    margin-top: 20px;
   }
   form {
     margin-top: 20px;
@@ -64,13 +73,43 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   input[type="submit"] {
     padding: 10px 20px;
-    background: #333;
+    background: #74ebd5;
     color: #fff;
     border: none;
     cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  input[type="submit"]:hover {
+    background: #ACB6E5;
+  }
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  .interests-item {
+    margin-bottom: 10px;
+  }
+  .interests-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 8px;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .fade-in {
+    animation: fadeIn 2s ease-in-out;
   }
 </style>
 <script>
@@ -83,7 +122,7 @@
 </head>
 <body>
 
-<header class="header">
+<header class="header fade-in">
   <h1>欢迎来到我的个人主页</h1>
   <nav>
     <ul>
@@ -96,24 +135,27 @@
 
 <div class="container">
   <section class="main">
-    <article id="about">
+    <article id="about" class="fade-in">
+      <img src="https://via.placeholder.com/150" alt="个人照片" class="profile-pic">
       <h2>关于我</h2>
-      <p>你好！我是hoppes，一名热爱科技与创新的开发者。</p>
+      <p>你好！我是hoppes，一名热爱科技与创新的开发者。在这里，您可以了解更多关于我的信息。</p>
     </article>
-    <article id="interests">
+    <article id="interests" class="fade-in">
       <h2>兴趣爱好</h2>
-      <p>我喜欢音乐和技术博客，还有探索新的技术。</p>
+      <div class="interests-item"><img src="https://via.placeholder.com/50" alt="编程图标">编程</div>
+      <div class="interests-item"><img src="https://via.placeholder.com/50" alt="书籍图标">阅读科幻小说</div>
+      <div class="interests-item"><img src="https://via.placeholder.com/50" alt="技术博客图标">探索新技术</div>
     </article>
   </section>
   
-  <aside class="sidebar">
+  <aside class="sidebar fade-in">
     <h3>联系信息</h3>
     <p>邮箱：example@example.com</p>
     <p>电话：123-456-7890</p>
   </aside>
 </div>
 
-<footer>
+<footer class="fade-in">
   <form id="contactForm" onsubmit="handleFormSubmit(event)">
     <h2 id="contact">联系我</h2>
     <input type="text" placeholder="姓名" required>
