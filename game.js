@@ -447,6 +447,7 @@
           : "大肥鱼合成成功，但本地道具进度没有保存。关闭后游戏继续。"
       : "新角色已经加入图鉴。关闭弹窗后，本局会从当前局面继续。";
     announcer.textContent = achievementTitle.textContent;
+    if (tier === "gold") window.FishSound?.play("achievement");
     if (!achievementDialog.open && typeof achievementDialog.showModal === "function") {
       achievementDialog.showModal();
       achievementContinue.focus({ preventScroll: true });
@@ -789,6 +790,7 @@
     highestLevel = Math.max(highestLevel, currentLevel, nextLevel);
     updateInterface();
     announcer.textContent = `放下了 ${stages[dropped.level].id}。`;
+    window.FishSound?.play("drop");
   }
 
   function pointInPolygon(x, y, vertices) {
@@ -882,6 +884,7 @@
       updateTouchInstructions();
       updateInterface();
       setItemStatus(`破解重锤砸掉了 ${stages[target.level].id}，不扣分。`);
+      window.FishSound?.play("hammer");
       showToast(`破解重锤：${stages[target.level].id}`);
       draw();
       return;
@@ -918,6 +921,7 @@
     updateInterface();
     setItemStatus(`重锤砸掉了 ${stages[target.level].id}，扣除 ${HAMMER_COST_LABEL} 分。`);
     announcer.textContent = `重锤砸掉了 ${stages[target.level].id}。`;
+    window.FishSound?.play("hammer");
     showToast(`重锤命中：${stages[target.level].id}`);
     if (!runIntegrityIsValid()) runIntegrityCompromised = true;
     draw();
@@ -974,6 +978,7 @@
     updateInterface();
     if (statusMessage) setItemStatus(statusMessage);
     announcer.textContent = "复活成功，本局重锤次数增加 2 次。";
+    window.FishSound?.play("revive");
     draw();
   }
 
@@ -1809,11 +1814,13 @@
     highestLevel = Math.max(highestLevel, newLevel);
     updateInterface();
     announcer.textContent = `合成：${stages[newLevel].id}`;
+    window.FishSound?.play("merge", { level: newLevel });
     const achievementShown = newLevel === stages.length - 1
-      ? recordBigFishCreated()
+      ? (window.FishSound?.play("bigfish"), recordBigFishCreated())
       : showAchievement(newLevel);
     if (combo.count >= 3) {
       const comboToastState = { count: combo.count, totalBonus: combo.totalBonus, stageName: stages[newLevel].id };
+      window.FishSound?.play("combo", { count: combo.count });
       if (achievementShown && achievementDialog.open) pendingComboToast = comboToastState;
       else showComboToast(comboToastState.count, comboToastState.totalBonus, comboToastState.stageName);
     }
@@ -1913,6 +1920,7 @@
       submitFinalScore();
     }
     announcer.textContent = "本局结束。你可以使用复活卡继续，或开始新的一局。";
+    window.FishSound?.play("gameover");
     if (!achievementDialog.open && typeof dialog.showModal === "function" && !dialog.open) dialog.showModal();
   }
 
